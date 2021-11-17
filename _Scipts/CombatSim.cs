@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Threading;
+
+//TODO: Make the sim work for multiple players
+//TODO: After the battle has ended, create .txt file with a battle recap in desktop
 
 namespace f5_oop
 {
@@ -12,6 +14,7 @@ namespace f5_oop
         static void Main(string[] args)
         {
             OnAwake();
+            OnStart();
             Update();
             OnGameEnd();
         }
@@ -20,8 +23,6 @@ namespace f5_oop
         {
             InitializePlayerList();
             SetGlobalPlayerValues();
-
-            CreatePlayers(numberOfPlayers);
         }
 
         static void InitializePlayerList()
@@ -35,12 +36,24 @@ namespace f5_oop
             PlayerStatics.MAX_ARMOR = 50;
         }
 
+        static void OnStart()
+        {
+
+            CreatePlayers(numberOfPlayers);
+
+            Utilities.PrintSeparatorLines();
+            Console.WriteLine($"Battle Started at: {DateTime.Now}");
+            Utilities.PrintSeparatorLines();
+        }
+
         static void CreatePlayers(int numberOfPlayers)
         {
             for (int i = 0; i < numberOfPlayers; i++)
             {
-                string name = Utilities.ReadString("What's the name of your player?");
+                string name = Utilities.ReadString($"What's the name of your player {i + 1}?");
 
+                //Εβαλα τιμες μεγαλυτερες των 100 και 50 για να δειξω το 
+                //capparisma μεσα στη Player class
                 Player newPlayer = new Player(name, 1312, 1312313);
 
                 playerList.Add(newPlayer);
@@ -49,10 +62,6 @@ namespace f5_oop
 
         static void Update()
         {
-            Utilities.PrintSeparatorLines();
-            Console.WriteLine($"Battle Started at: {DateTime.Now}");
-            Utilities.PrintSeparatorLines();
-
             while (true)
             {
                 //Player 1 attacks player 2
@@ -72,6 +81,7 @@ namespace f5_oop
                     Console.WriteLine($"{playerList[0].Name} is dead.");
                     break;
                 }
+
                 while (!Utilities.WaitForEnter()) ;
             }
 
@@ -91,6 +101,7 @@ namespace f5_oop
         {
             Console.WriteLine("Press any key to terminate the program.");
             Console.ReadKey();
+            Environment.Exit(0);
         }
     }
 }

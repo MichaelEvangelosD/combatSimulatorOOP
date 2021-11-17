@@ -78,6 +78,7 @@ namespace f5_oop
             {
                 Console.Write($"{target.Name} got his health damaged for ");
                 target.DamageHealth(randomizer.Next(5, 11));
+                Console.WriteLine($"\tRemaining health: {target.Health}");
 
                 Scoreboard.CreateEntry(target.Name, target.Health, target.Armor);
             }
@@ -85,6 +86,7 @@ namespace f5_oop
             {
                 Console.Write($"{target.Name} got his armor damaged for ");
                 target.DamageArmor((randomizer.Next(5, 11)) - 1);
+                Console.WriteLine($"\tRemaining armor: {target.Armor}");
 
                 Scoreboard.CreateEntry(target.Name, target.Health, target.Armor);
             }

@@ -34,6 +34,7 @@ namespace f5_oop
             foreach (string entry in scores)
             {
                 Console.WriteLine(entry);
+                Utilities.PrintSeparatorLines();
             }
         }
     }
